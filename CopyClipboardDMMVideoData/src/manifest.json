@@ -1,0 +1,12 @@
+{
+  "name": "Fanza Title Copy Button",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Fanza Title Copy Button",
+  "content_scripts": [{
+    "matches": ["https://www.dmm.co.jp/digital/videoa/*"],
+    "js": [
+      "content.js"
+    ]
+  }]
+}
