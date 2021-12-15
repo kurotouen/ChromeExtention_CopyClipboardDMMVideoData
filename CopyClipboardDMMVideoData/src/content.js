@@ -1,27 +1,38 @@
 console.log("content.js開始");
 
 let head = document.querySelector("h1");
+let orignalTitleText = head.textContent;
 
 var button = document.createElement("BUTTON");
-button.name = "Copy";
+button.name = "Send";
 button.style.width = '100px'; // setting the width to 200px
 button.style.height = '50px'; 
 
-var t = document.createTextNode("Copy");
+var t = document.createTextNode("Send");
 button.appendChild(t);
 
 button.addEventListener('click', function()
 {
-  //navigator.clipboard.writeText(e.textContent.replace(button.name, ""));
+  // table要素を取得
+  var tableElem = document.querySelectorAll("[class=mg-b20]");
+ 
+  console.log(tableElem);
 
-  let head = document.querySelector("h1");
+  // 行（tr要素）を取得
+  var hinban = "XXXXX";
 
-  //?以降をカット
-  let url = location.href.replace(/\?.*$/,'');
+  for (let row of tableElem[0].rows) {
+    for(let cell of row.cells){
+       console.log(cell.innerText);
+    }
+}
 
   const data = {
-    url: url,
-    title: head.textContent
+    id:hinban,
+    title: orignalTitleText, //タイトルはB列
+    url: location.href.replace(/\?.*$/,''),   //?以降をカット
+    performer: document.getElementById('performer').textContent.replace(/\r?\n/g,""),//改行をカット
+    watch: "未見"
   }
 
   let json = JSON.stringify(data);
@@ -30,14 +41,14 @@ button.addEventListener('click', function()
     message: json
   }, response => {
 
+    console.log(`backgroundからの戻り値:`+response);
     const obj = JSON.parse(response);
-
-    console.log(`backgroundからの戻り値:`+obj);
-
-    if(obj.sucsess == true)
+    if(obj.exist == false)
     {
       button.textContent = `成功`;
-    }    
+    }else{
+      button.textContent = `保存済み`;
+    }
 
     // ここで画面への処理を書く
     //const new_element = document.createElement('p');
