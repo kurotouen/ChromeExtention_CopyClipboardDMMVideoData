@@ -3,10 +3,22 @@
   "version": "1.0.0",
   "manifest_version": 2,
   "description": "Fanza Title Copy Button",
+  "permissions": [
+    "https://script.google.com/*"
+  ],
   "content_scripts": [{
-    "matches": ["https://www.dmm.co.jp/digital/videoa/*"],
+    "matches": [
+      "https://www.dmm.co.jp/digital/videoa/*",
+      "https://www.dmm.co.jp/monthly/*"
+    ],
     "js": [
       "content.js"
     ]
-  }]
+  }],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "presistent": false
+  }
 }
